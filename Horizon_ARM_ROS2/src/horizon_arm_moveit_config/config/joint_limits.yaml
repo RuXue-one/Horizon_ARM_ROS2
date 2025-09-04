@@ -1,0 +1,8 @@
+joint_limits:
+  1_join: {has_velocity_limits: true, max_velocity: 2.0, has_acceleration_limits: false}
+  2_join: {has_velocity_limits: true, max_velocity: 2.0, has_acceleration_limits: false, has_position_limits: true, min_position: -1.5708, max_position: 1.5708}
+  3_join: {has_velocity_limits: true, max_velocity: 2.0, has_acceleration_limits: false}
+  4_join: {has_velocity_limits: true, max_velocity: 2.5, has_acceleration_limits: false, has_position_limits: true, min_position: -3.1416, max_position: 3.1416}
+  5_join: {has_velocity_limits: true, max_velocity: 2.5, has_acceleration_limits: false}
+  6_join: {has_velocity_limits: true, max_velocity: 3.0, has_acceleration_limits: false}
+

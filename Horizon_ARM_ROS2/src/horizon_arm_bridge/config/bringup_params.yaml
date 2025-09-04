@@ -1,0 +1,6 @@
+
+ui:
+  start_ui: true
+  mapping_path: "~/Horizon_ARM_ROS2/arm-ros2/mapping.yaml"
+  com_port: "/dev/ttyACM0"
+ 

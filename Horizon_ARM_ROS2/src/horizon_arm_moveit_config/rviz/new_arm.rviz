@@ -1,0 +1,86 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Selection
+    Name: Selection
+  - Class: rviz_common/Tool Properties
+    Name: Tool Properties
+    Expanded: true
+    Splitter Ratio: 0.5
+  - Class: rviz_common/Views
+    Name: Views
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Cell Size: 0.25
+      Plane: XY
+      Color: 160; 160; 160
+      Alpha: 0.7
+      Line Style:
+        Value: Lines
+      Reference Frame: base_link
+    - Class: rviz_default_plugins/TF
+      Name: TF
+      Enabled: true
+      Frame Timeout: 15.0
+      Frames:
+        All Enabled: true
+      Marker Scale: 0.3
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Update Interval: 0.0
+    - Class: rviz_default_plugins/RobotModel
+      Enabled: true
+      Name: RobotModel
+      Robot Description: robot_description
+    - Class: moveit_rviz_plugin/MotionPlanning
+      Enabled: true
+      Name: MotionPlanning
+      Robot Description: robot_description
+      Move Group Namespace: /
+      Planning Scene Topic: monitored_planning_scene
+      Planning Request:
+        Planning Group: manipulator
+        Interactive Marker Size: 0.15
+        Use Cartesian Path: false
+        Goal State: current
+        Start State: current
+      Interactive Markers:
+        Update Topic: /rviz_moveit_motion_planning_display/robot_interaction_interactive_marker_topic
+        Show Axes: true
+        Show 6DOF: true
+        Show Visual Aids: true
+      Planning Scene Display:
+        Show Robot Visual: true
+        Show Robot Collision: false
+        Show Scene Geometry: true
+      Trajectory:
+        Show Robot Visual: true
+        Show Robot Collision: false
+        Show Trail: true
+        Trail Step Size: 1
+        Line Width: 0.005
+        State Display Time: 0.05
+      Scene Geometry:
+        Scene Alpha: 0.6
+  Global Options:
+    Background Color: 48; 48; 48
+    Fixed Frame: base_link
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/Select
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Name: Current View
+Window Geometry:
+  Height: 800
+  Width: 1200
+  X: 50
+  Y: 50
+

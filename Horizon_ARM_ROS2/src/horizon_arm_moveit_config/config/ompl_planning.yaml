@@ -1,0 +1,38 @@
+default_planning_pipeline: ompl
+planning_pipelines:
+  - ompl
+
+ompl:
+  planning_plugin: ompl_interface/OMPLPlanner
+  request_adapters: default_planner_request_adapters/AddTimeOptimalParameterization default_planner_request_adapters/FixWorkspaceBounds default_planner_request_adapters/FixStartStateBounds default_planner_request_adapters/FixStartStateCollision default_planner_request_adapters/FixStartStatePathConstraints
+
+# 强制禁用CHOMP
+chomp:
+  planning_plugin: ""
+  
+planner_configs:
+  RRTConnectkConfigDefault:
+    type: geometric::RRTConnect
+    range: 0.3
+  RRTstarkConfigDefault:
+    type: geometric::RRTstar
+    range: 0.3
+    goal_bias: 0.05
+    delay_collision_checking: 1
+  ESTkConfigDefault:
+    type: geometric::EST
+    range: 0.3
+    goal_bias: 0.05
+
+group_configs:
+  manipulator:
+    default_planner_config: RRTConnectkConfigDefault
+    planner_configs:
+      - RRTConnectkConfigDefault
+      - RRTstarkConfigDefault
+      - ESTkConfigDefault
+    projection_evaluator: joints(1_join,2_join)
+    longest_valid_segment_fraction: 0.01
+    planning_time_limit: 5.0
+    max_safe_path_cost: 1
+

@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+<robot name="new_arm">
+  <!-- 机械臂主运动组 -->
+  <group name="manipulator">
+    <joint name="1_join"/>
+    <joint name="2_join"/>
+    <joint name="3_join"/>
+    <joint name="4_join"/>
+    <joint name="5_join"/>
+    <joint name="6_join"/>
+  </group>
+
+  <!-- 虚拟关节：将 base_link 固定到 world 框架 -->
+  <virtual_joint name="world_joint" type="fixed" parent_frame="world" child_link="base_link"/>
+
+  <!-- 预设姿态（安全位，避免自碰） -->
+  <!-- home: 全零位，便于比对与自定义 -->
+  <group_state name="home" group="manipulator">
+    <joint name="1_join" value="0.0"/>
+    <joint name="2_join" value="0.0"/>
+    <joint name="3_join" value="0.0"/>
+    <joint name="4_join" value="0.0"/>
+    <joint name="5_join" value="0.0"/>
+    <joint name="6_join" value="0.0"/>
+  </group_state>
+
+  <!-- 末端：直接使用 6_Link 作为 TCP，可选。去除不必要的 end_effector 定义以避免父组解析告警 -->
+
+  <!-- 禁用相邻件等常见接触对，避免误判自碰（最小集） -->
+  <disable_collisions link1="base_link" link2="1_Link" reason="Adjacent"/>
+  <disable_collisions link1="1_Link" link2="2_Link" reason="Adjacent"/>
+  <disable_collisions link1="2_Link" link2="3_Link" reason="Adjacent"/>
+  <disable_collisions link1="3_Link" link2="4_Link" reason="Adjacent"/>
+  <disable_collisions link1="4_Link" link2="5_Link" reason="Adjacent"/>
+  <disable_collisions link1="5_Link" link2="6_Link" reason="Adjacent"/>
+  <!-- 在 home 姿态下常见的误判对（网格重叠带来的近接触）：允许 base_link 与 2_Link 接触 -->
+  <disable_collisions link1="base_link" link2="2_Link" reason="Manual"/>
+  <!-- 补充两组常见近接触的对，减少 home 处的误报 -->
+  <disable_collisions link1="base_link" link2="3_Link" reason="Manual"/>
+  <disable_collisions link1="1_Link" link2="3_Link" reason="Manual"/>
+</robot>
+

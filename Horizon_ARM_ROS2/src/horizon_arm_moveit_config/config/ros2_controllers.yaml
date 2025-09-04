@@ -1,0 +1,33 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+    fake_manipulator_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+fake_manipulator_controller:
+  ros__parameters:
+    joints:
+      - 1_join
+      - 2_join
+      - 3_join
+      - 4_join
+      - 5_join
+      - 6_join
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0
+    allow_partial_joints_goal: false
+    allow_nonzero_velocity_at_trajectory_end: true
+    constraints:
+      stopped_velocity_tolerance: 0.1
+      goal_time: 2.0
+      1_join: {trajectory: 0.2, goal: 0.1}
+      2_join: {trajectory: 0.2, goal: 0.1}
+      3_join: {trajectory: 0.2, goal: 0.1}
+      4_join: {trajectory: 0.2, goal: 0.1}
+      5_join: {trajectory: 0.2, goal: 0.1}
+      6_join: {trajectory: 0.2, goal: 0.1}

@@ -1,0 +1,18 @@
+moveit_controller_manager: moveit_simple_controller_manager/MoveItSimpleControllerManager
+moveit_simple_controller_manager:
+  controller_names:
+    - fake_manipulator_controller
+
+  fake_manipulator_controller:
+    type: FollowJointTrajectory
+    action_ns: follow_joint_trajectory
+    joints:
+      - 1_join
+      - 2_join
+      - 3_join
+      - 4_join
+      - 5_join
+      - 6_join
+  # 连接到 ros2_control 的 fake_manipulator_controller
+  # 用于 MoveIt 轨迹演示，不控制实际硬件
+

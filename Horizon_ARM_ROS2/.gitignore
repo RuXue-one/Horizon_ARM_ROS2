@@ -1,0 +1,49 @@
+# ROS2构建产物
+build/
+install/
+log/
+
+# Python缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg-info/
+
+# IDE文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 临时文件
+*.tmp
+*.bak
+*.log
+
+# ROS包文件
+*.bag
+*.mcap
+
+# 编译文件
+*.o
+*.a
+*.dylib
+
+# 环境变量文件
+.env
+.env.local
+
+# 测试覆盖率
+.coverage
+htmlcov/
+
+# 文档构建
+_build/

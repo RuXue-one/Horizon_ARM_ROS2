@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>horizon_arm_bridge</name>
+  <version>0.1.0</version>
+  <description>桥接包：订阅 MoveIt 规划并驱动硬件执行</description>
+
+  <maintainer email="maintainer@example.com">maintainer</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclpy</depend>
+  <depend>trajectory_msgs</depend>
+  <depend>control_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>visualization_msgs</depend>
+  <depend>moveit_msgs</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+

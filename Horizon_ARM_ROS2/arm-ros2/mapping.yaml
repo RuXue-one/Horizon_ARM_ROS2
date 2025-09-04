@@ -1,0 +1,74 @@
+# Joint/motor mapping and motion parameters for real robot control
+
+# Serial/CAN interface (Ubuntu 使用 SLCAN 串口)
+com_port: "/dev/ttyACM0"     # 改为你的真实设备，例如 /dev/ttyACM0 或 /dev/ttyUSB0
+baudrate: 500000              # SLCAN 波特率（常用500K）
+
+# Board type hint: "X" uses sync_flag + broadcast sync; "Y" prefers multi_motor_command.
+board_type: "X"
+
+# Motor IDs (1..6). Order must correspond to joints order below
+motor_ids: [1, 2, 3, 4, 5, 6]
+
+# ROS joints order
+joints: ["1_join", "2_join", "3_join", "4_join", "5_join", "6_join"]
+
+# Per-joint mapping
+sign:            [  1,   1,   1,  -1,   1,  -1 ]   # 关节运动方向
+gear_ratio:      [ 62.0, 51.0, 51.0, 62.0, 12.0, 10.0 ]  # 各轴减速比
+zero_offset_deg: [  0,   0,   0,   0,   0,   0 ]   # 零位偏置角度（°）
+pos_limit_deg:
+  - [-180, 180]   # J1: 连续旋转关节，±180°安全范围
+  - [-90, 90]     # J2: ±90°工作范围
+  - [-143, 143]   # J3: ±143°工作范围
+  - [-180, 180]   # J4: 连续旋转关节
+  - [-143, 143]   # J5: ±143°工作范围
+  - [-180, 180]   # J6: 连续旋转关节
+ 
+# 每关节角度套圈范围（度）：用于实时跟随计算“最小角差”。
+# 例如：
+#   - J2 只允许 ±90° → wrap_deg=180（范围 -90..90]
+#   - J4 允许 ±180°   → wrap_deg=360（范围 -180..180]
+wrap_deg: [360, 180, 286, 360, 286, 360]
+wrap_epsilon_deg: 0.5
+vel_limit_deg_s: [15, 15, 15, 20, 20, 30] # 关节速度上限（用于rate limit）
+
+# 映射/下发空间控制
+# - output: 下发为输出端角(度)，不在UI内套用减速比与方向（推荐，避免重复映射）
+# - motor:  下发为电机角(度)，按 gear_ratio 与 sign 进行映射
+send_space: "motor"
+apply_sign_in_ui: true
+show_output_measured: true   # 读取到的“实测角度”按(方向/减速比)换算为输出端角后显示
+
+# 回零策略：
+# - capture_on_connect: 连接后首次成功读取到的输出端角作为回零点
+# - zeros: 6轴全 0 度作为回零点
+# - manual: 仅手动点击“设为回零”记录当前为回零
+home_mode: "capture_on_connect"
+
+# 实时跟随参数（优化启动平滑度）
+stream_min_delta_deg: 0.02      # 小于该关节角变化(输出端°)则忽略该轴的实时下发
+stream_use_direct: false       # 使用梯形模式，提供平滑启动
+stream_speed_rpm: 180          # 进一步提升实时模式速度
+
+# Servo loop
+servo_rate_hz: 50            # 真机伺服频率（建议 100~250）
+watchdog_timeout_ms: 300      # 超过该时间未收到新帧则保持/停止
+
+# SDK 通信超时与重试（用于 Windows 侧读取/下发）
+sdk_timeout_s: 2.5            # 单条命令等待回帧超时（秒），SDK默认1.0，此处可放宽
+read_retries: 2               # 读取状态失败时的额外重试次数
+read_gap_ms: 50               # 读取同一电机或相邻电机之间的等待间隔（毫秒）
+connect_gap_ms: 100           # 连接/使能相邻电机之间的等待间隔（毫秒）
+send_retries: 2               # 下发失败时的额外重试次数
+send_gap_ms: 50               # 相邻电机下发之间的等待间隔（毫秒）
+
+# Default motion parameters for trapezoid motions (when using goto mode)
+max_speed_rpm: 150             # 最大运动速度（RPM）
+acceleration_rpm_s: 200        # 加速度（RPM/s）
+deceleration_rpm_s: 200        # 减速度（RPM/s）
+
+
+follow_mode: one_shot
+follow_idle_ms: 200
+
